@@ -1,0 +1,10 @@
+{
+    "id": "com.entity12208.voicechat",
+    "name": "VoiceChat",
+    "version": "1.0.0",
+    "authors": "entity12208",
+    "description": "Adds voice chat functionality with deafen/undeafen based on in-game percentage.",
+    "dependencies": [
+        "geode-sdk"
+    ]
+}
