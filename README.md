@@ -1,4 +1,5 @@
 # GeodeVoiceChat
+![Icon.png](https://github.com/user-attachments/assets/590a4bf2-a8f1-4f84-b878-99d4cfcf699b)
 
 ## Description
 The GeodeVoiceChat mod adds voice chat functionality to Geometry Dash. It allows users to use voice chat in-game and will deafen them once they pass a percentage set by a slider. The player is undeafened once they die or complete the level.
