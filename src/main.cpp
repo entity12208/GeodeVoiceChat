@@ -1,9 +1,5 @@
-#include "geode-sdk/sdk.h"
-#include "geode-sdk/ui.h"
-#include "geode-sdk/event.h"
-#include "geode-sdk/level.h"
-#include "geode-sdk/player.h"
-#include "lib/voicechatlib.gs"
+#include "voicechatmod.h"
+#include "voicechatlib.h"
 
 class VoiceChatMod : public geode::Mod {
 private:
