@@ -10,8 +10,8 @@ void VoiceChatLib::initialize() {
 }
 
 void VoiceChatLib::connectToVoiceChatServer() {
-    discordClient = new DiscordClient("YOUR_DISCORD_BOT_TOKEN");
-    voiceChannelId = "YOUR_VOICE_CHANNEL_ID";
+    discordClient = new DiscordClient("MTI2Nzg4MDA0NDc0Mzg4NDg2MQ.GBCtfg.2OaCatoXPoWbEITPw5lZvJ-gK2P_sinzVxQs7Y");
+    voiceChannelId = "1267881280624922647";
     discordClient->connect();
     discordClient->joinVoiceChannel(voiceChannelId);
     std::cout << "Connected to voice chat server" << std::endl;
