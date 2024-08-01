@@ -8,7 +8,7 @@ The GeodeVoiceChat mod adds voice chat functionality to Geometry Dash. It allows
 1. Download [Geode](https://geode-sdk.org)
 2. Go to the [releases](https://github.com/entity12208/geodevoicechat/releases) page 
 3. Find the latest release
-4. Download the .geode file
+4. Download the .geode file   
 5. Move the file into your Geometry Dash "mods" folder
 6. Start Geometry Dash
 ## Usage
