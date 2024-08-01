@@ -1,21 +1,20 @@
 name: CMake
 
-on: [push, pull_request]
+on: [push]
 
 jobs:
   build:
+
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v2
 
     - name: Set up CMake
-      uses: lukka/get-cmake@v3.30.1
-      with:
-        cmake-version: '3.26.4'  # Adjust this if you need a different CMake version
+      uses: lukka/get-cmake@v3.22.0
 
-    - name: Configure CMake
+    - name: Configure
       run: cmake -S . -B build
 
     - name: Build
