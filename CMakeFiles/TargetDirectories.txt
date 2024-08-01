@@ -1,4 +1,0 @@
-/home/entity12208/GeodeVoiceChat/CMakeFiles/main.dir
-/home/entity12208/GeodeVoiceChat/CMakeFiles/copy-compile-commands.dir
-/home/entity12208/GeodeVoiceChat/CMakeFiles/edit_cache.dir
-/home/entity12208/GeodeVoiceChat/CMakeFiles/rebuild_cache.dir
