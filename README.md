@@ -15,7 +15,7 @@ The GeodeVoiceChat mod adds voice chat functionality to Geometry Dash. It allows
 1. Open the mod menu in Geometry Dash.
 2. Adjust the "Deafen Percentage" slider to set the percentage at which the voice chat will deafen.
 3. Enjoy voice chatting with your friends while playing! 
-
+      
 ## Authors
 - Entity12208 
 
