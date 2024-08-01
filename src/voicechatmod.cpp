@@ -6,59 +6,36 @@
 
 using namespace geode::prelude;
 
-VoiceChatMod::VoiceChatMod() : deafenPercentage(50) {
+void VoiceChatMod::onLoad() {
+    VoiceChatLib::initialize();
+
+    deafenPercentageSlider = geode::ui::Slider::create(
+        "Deafen Percentage",
+        0, 100, 50,
+        [this](int value) { this->onDeafenPercentageChange(value); }
+    );
+
+    geode::ui::addElement(deafenPercentageSlider);
+
+    geode::event::subscribe<geode::level::PercentageReached>([this](int percentage) { this->onPercentageReached(percentage); });
+    geode::event::subscribe<geode::player::Death>([this]() { this->onPlayerDeath(); });
+    geode::event::subscribe<geode::level::Complete>([this]() { this->onLevelComplete(); });
 }
 
-void VoiceChatMod::initialize() {
-    VoiceChatLib::initializeVoiceChat();
-    setupDeafenSlider();
-    subscribeToGameEvents();
+void VoiceChatMod::onDeafenPercentageChange(int value) {
+    deafenPercentage = value;
 }
 
-void VoiceChatMod::setupDeafenSlider() {
-    Slider* slider = Slider::create("Deafen Percentage", 0, 100, deafenPercentage, [this](float value) {
-        this->deafenPercentage = static_cast<int>(value);
-    });
-    GameManager::sharedState()->addChild(slider);
-}
-
-void VoiceChatMod::subscribeToGameEvents() {
-    GameManager::sharedState()->onLevelStart([this](bool practice) {
-        this->onLevelStart(practice);
-    });
-
-    GameManager::sharedState()->onPlayerDeath([this](PlayerObject* player) {
-        this->onPlayerDeath(player);
-    });
-
-    GameManager::sharedState()->onLevelComplete([this](PlayerObject* player) {
-        this->onLevelComplete(player);
-    });
-
-    PlayerObject::sharedInstance()->onPercentage([this](float percentage) {
-        this->onPercentage(percentage);
-    });
-}
-
-void VoiceChatMod::onLevelStart(bool practice) {
-    isDeafened = false;
-    VoiceChatLib::undeafen();
-}
-
-void VoiceChatMod::onPlayerDeath(PlayerObject* player) {
-    VoiceChatLib::undeafen();
-}
-
-void VoiceChatMod::onLevelComplete(PlayerObject* player) {
-    VoiceChatLib::undeafen();
-}
-
-void VoiceChatMod::onPercentage(float percentage) {
-    if (percentage >= deafenPercentage && !isDeafened) {
+void VoiceChatMod::onPercentageReached(int percentage) {
+    if (percentage >= deafenPercentage) {
         VoiceChatLib::deafen();
-        isDeafened = true;
-    } else if (percentage < deafenPercentage && isDeafened) {
-        VoiceChatLib::undeafen();
-        isDeafened = false;
     }
+}
+
+void VoiceChatMod::onPlayerDeath() {
+    VoiceChatLib::undeafen();
+}
+
+void VoiceChatMod::onLevelComplete() {
+    VoiceChatLib::undeafen();
 }
