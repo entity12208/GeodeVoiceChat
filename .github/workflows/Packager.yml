@@ -1,0 +1,72 @@
+name: Release GeodeVoiceChat
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Set up Git
+        run: |
+          git config --global user.name 'github-actions'
+          git config --global user.email 'github-actions@github.com'
+
+      - name: Get the latest tag
+        id: get_latest_tag
+        run: |
+          latest_tag=$(git describe --tags `git rev-list --tags --max-count=1`)
+          echo "latest_tag=$latest_tag" >> $GITHUB_ENV
+
+      - name: Calculate next version
+        id: calculate_version
+        run: |
+          if [ -z "$latest_tag" ]; then
+            echo "next_version=1.0.0" >> $GITHUB_ENV
+          else
+            IFS='.' read -r -a parts <<< "$latest_tag"
+            major=${parts[0]}
+            minor=${parts[1]}
+            patch=${parts[2]}
+            patch=$((patch + 1))
+            next_version="$major.$minor.$patch"
+            echo "next_version=$next_version" >> $GITHUB_ENV
+          fi
+
+      - name: Create new tag
+        id: create_tag
+        run: |
+          git tag ${{ env.next_version }}
+          git push origin ${{ env.next_version }}
+
+      - name: Create GitHub release
+        uses: actions/create-release@v1
+        with:
+          tag_name: ${{ env.next_version }}
+          release_name: Release ${{ env.next_version }}
+          body: |
+            Changes in this release:
+            - Description of changes
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+
+      - name: Create .geode file
+        run: |
+          zip -r GeodeVoiceChat-${{ env.next_version }}.geode .
+
+      - name: Upload release assets
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_tag.outputs.upload_url }}
+          asset_path: ./GeodeVoiceChat-${{ env.next_version }}.geode
+          asset_name: GeodeVoiceChat-${{ env.next_version }}.geode
+          asset_content_type: application/octet-stream
