@@ -3,7 +3,7 @@ name: Create Release
 on:
   push:
     branches:
-      - main  # Change this to your default branch if it's not 'main'
+      - main  # Ensure this matches your default branch
 
 jobs:
   release:
@@ -22,7 +22,6 @@ jobs:
         run: |
           git fetch --tags
           TAG=$(git tag --sort=-creatordate | head -n 1)
-          echo "Latest tag is $TAG"
           echo "LATEST_TAG=$TAG" >> $GITHUB_ENV
 
       - name: Bump version
@@ -32,7 +31,6 @@ jobs:
           if [ -z "$VERSION" ]; then
             VERSION="1.0.0"
           fi
-          echo "New version is v$VERSION"
           echo "NEW_TAG=v$VERSION" >> $GITHUB_ENV
 
       - name: Create new tag
