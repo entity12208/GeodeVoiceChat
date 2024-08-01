@@ -12,6 +12,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Set up CMake
+        uses: lukka/get-cmake@v3.30.1
+        with:
+          cmake-version: '3.26.4'  # Adjust CMake version if needed
+
       - name: Set up Git
         run: |
           git config user.name "GitHub Actions"
