@@ -35,12 +35,12 @@ jobs:
           fi
           echo "NEW_TAG=v$VERSION" >> $GITHUB_ENV
 
-      - name: Build GeodeVoiceChat.geode file
+      - name: Prepare build directory
+        run: mkdir -p build
+
+      - name: Zip project files
         run: |
-          mkdir -p build
-          echo "Building GeodeVoiceChat.geode file..."
-          # Replace with your actual build command
-          cp path/to/your/GeodeVoiceChat.geode build/GeodeVoiceChat-$NEW_TAG.geode
+          zip -r build/GeodeVoiceChat-$NEW_TAG.geode . -x '.git*' -x '.github*' -x 'build/*'
         env:
           NEW_TAG: ${{ env.NEW_TAG }}
 
@@ -70,6 +70,6 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: build/GeodeVoiceChat-$NEW_TAG.geode
           asset_name: GeodeVoiceChat-$NEW_TAG.geode
-          asset_content_type: application/octet-stream
+          asset_content_type: application/zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
