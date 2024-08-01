@@ -50,6 +50,7 @@ jobs:
       - name: Create GitHub release
         uses: actions/create-release@v1
         with:
+          token: ${{ secrets.GITHUB_TOKEN }}
           tag_name: ${{ env.next_version }}
           release_name: Release ${{ env.next_version }}
           body: |
@@ -57,7 +58,6 @@ jobs:
             - Description of changes
           draft: false
           prerelease: false
-          generate_release_notes: true
 
       - name: Create .geode file
         run: |
