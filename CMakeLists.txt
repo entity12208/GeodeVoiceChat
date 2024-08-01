@@ -1,17 +1,13 @@
 cmake_minimum_required(VERSION 3.10)
 
-project(VoiceChat VERSION 1.0)
+project(VoiceChatMod)
 
-set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_CXX_STANDARD_REQUIRED True)
+set(CMAKE_CXX_STANDARD 17)
 
-add_executable(voicechat
-    src/main.cpp
-    src/voicechatmod.cpp
-    lib/voicechatlib.cpp
-)
+include_directories(include)
 
-target_include_directories(voicechat PUBLIC
-    "${PROJECT_SOURCE_DIR}/src"
-    "${PROJECT_SOURCE_DIR}/lib"
-)
+add_library(voicechat SHARED src/voicechatmod.cpp src/main.cpp)
+
+find_package(CURL REQUIRED)
+include_directories(${CURL_INCLUDE_DIRS})
+target_link_libraries(voicechat ${CURL_LIBRARIES})
