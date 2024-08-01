@@ -1,19 +1,18 @@
 #pragma once
 
-class VoiceChatMod {
+#include <Geode/modify/PlayerObject.hpp>
+#include <Geode/modify/GameManager.hpp>
+#include <Geode/ui/Slider.hpp>
+
+class VoiceChatMod : public geode::Mod {
 public:
-    VoiceChatMod();
-    void initialize();
+    void onLoad() override;
+    void onDeafenPercentageChange(int value);
+    void onPercentageReached(int percentage);
+    void onPlayerDeath();
+    void onLevelComplete();
 
 private:
-    int deafenPercentage;
-    bool isDeafened = false;
-
-    void setupDeafenSlider();
-    void subscribeToGameEvents();
-
-    void onLevelStart(bool practice);
-    void onPlayerDeath(PlayerObject* player);
-    void onLevelComplete(PlayerObject* player);
-    void onPercentage(float percentage);
+    geode::ui::Slider* deafenPercentageSlider;
+    int deafenPercentage = 50;
 };
