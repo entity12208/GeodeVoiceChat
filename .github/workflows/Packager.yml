@@ -1,4 +1,4 @@
-name: Create Release 
+name: Create Release
 
 on:
   push:
@@ -35,6 +35,15 @@ jobs:
           fi
           echo "NEW_TAG=v$VERSION" >> $GITHUB_ENV
 
+      - name: Build GeodeVoiceChat.geode file
+        run: |
+          mkdir -p build
+          echo "Building GeodeVoiceChat.geode file..."
+          # Replace with your actual build command
+          cp path/to/your/GeodeVoiceChat.geode build/GeodeVoiceChat-$NEW_TAG.geode
+        env:
+          NEW_TAG: ${{ env.NEW_TAG }}
+
       - name: Create new tag
         run: |
           git tag $NEW_TAG
@@ -43,6 +52,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create release
+        id: create_release
         uses: actions/create-release@v1
         with:
           tag_name: $NEW_TAG
@@ -51,5 +61,15 @@ jobs:
             Release notes for $NEW_TAG
           draft: false
           prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload GeodeVoiceChat.geode file
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: build/GeodeVoiceChat-$NEW_TAG.geode
+          asset_name: GeodeVoiceChat-$NEW_TAG.geode
+          asset_content_type: application/octet-stream
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
