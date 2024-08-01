@@ -1,19 +1,20 @@
-cmake_minimum_required (VERSION 3.0.0)
-project (main CXX)
+# Minimum CMake version required
+cmake_minimum_required(VERSION 3.10)
 
-SET(CMAKE_EXPORT_COMPILE_COMMANDS 1)
-SET(CMAKE_CXX_COMPILER "clang++")
-SET(CMAKE_CXX_STANDARD_INCLUDE_DIRECTORIES  ${CMAKE_CXX_IMPLICIT_INCLUDE_DIRECTORIES})
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0")
-set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -O0")
+# Project name and version
+project(VoiceChat VERSION 1.0)
 
-include_directories(include)
-file(GLOB SRC src/*.cpp)
-add_executable(main ${SRC})
+# Specify the C++ standard
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-add_custom_target(
-	copy-compile-commands ALL
-	${CMAKE_COMMAND} -E copy_if_different
-	${CMAKE_BINARY_DIR}/compile_commands.json
-	${CMAKE_CURRENT_LIST_DIR}
-)
+# Add the executable
+add_executable(voicechat src/main.cpp lib/voicechatlib.cpp)
+
+# Include directories
+target_include_directories(voicechat PUBLIC "${PROJECT_BINARY_DIR}")
+target_include_directories(voicechat PUBLIC "${PROJECT_SOURCE_DIR}/src")
+target_include_directories(voicechat PUBLIC "${PROJECT_SOURCE_DIR}/lib")
+
+# Link libraries (if any)
+# target_link_libraries(voicechat <library>)
