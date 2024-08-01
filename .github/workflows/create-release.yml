@@ -40,14 +40,14 @@ jobs:
 
       - name: Zip project files
         run: |
-          zip -r build/GeodeVoiceChat-$NEW_TAG.geode . -x '.git*' -x '.github*' -x 'build/*'
+          zip -r build/GeodeVoiceChat-${{ env.NEW_TAG }}.geode . -x '.git/*' -x '.github/*' -x 'build/*'
         env:
           NEW_TAG: ${{ env.NEW_TAG }}
 
       - name: Create new tag
         run: |
-          git tag $NEW_TAG
-          git push origin $NEW_TAG
+          git tag ${{ env.NEW_TAG }}
+          git push origin ${{ env.NEW_TAG }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -55,10 +55,10 @@ jobs:
         id: create_release
         uses: actions/create-release@v1
         with:
-          tag_name: $NEW_TAG
-          release_name: Release $NEW_TAG
+          tag_name: ${{ env.NEW_TAG }}
+          release_name: Release ${{ env.NEW_TAG }}
           body: |
-            Release notes for $NEW_TAG
+            Release notes for ${{ env.NEW_TAG }}
           draft: false
           prerelease: false
         env:
@@ -68,8 +68,8 @@ jobs:
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: build/GeodeVoiceChat-$NEW_TAG.geode
-          asset_name: GeodeVoiceChat-$NEW_TAG.geode
+          asset_path: build/GeodeVoiceChat-${{ env.NEW_TAG }}.geode
+          asset_name: GeodeVoiceChat-${{ env.NEW_TAG }}.geode
           asset_content_type: application/zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
