@@ -17,6 +17,6 @@ The GeodeVoiceChat mod adds voice chat functionality to Geometry Dash. It allows
 3. Enjoy voice chatting with your friends while playing! 
 
 ## Authors
-- Entity12208
+- Entity12208 
 
 ## This Project Uses The [Discord](https://discord.com) API 
