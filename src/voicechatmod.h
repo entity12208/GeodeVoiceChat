@@ -1,30 +1,19 @@
-#ifndef VOICECHATMOD_H
-#define VOICECHATMOD_H
+#pragma once
 
-#include "geode-sdk/sdk.h"
-#include "geode-sdk/ui.h"
-#include "geode-sdk/event.h"
-#include "geode-sdk/level.h"
-#include "geode-sdk/player.h"
-#include "voicechatlib.h"
-
-class VoiceChatMod : public geode::Mod {
-private:
-    geode::ui::Slider* deafenPercentageSlider;
-    int deafenPercentage = 50;
-
+class VoiceChatMod {
 public:
-    void onLoad() override;
+    VoiceChatMod();
+    void initialize();
 
-    void onDeafenPercentageChange(int value);
+private:
+    int deafenPercentage;
+    bool isDeafened = false;
 
-    void onPercentageReached(int percentage);
+    void setupDeafenSlider();
+    void subscribeToGameEvents();
 
-    void onPlayerDeath();
-
-    void onLevelComplete();
+    void onLevelStart(bool practice);
+    void onPlayerDeath(PlayerObject* player);
+    void onLevelComplete(PlayerObject* player);
+    void onPercentage(float percentage);
 };
-
-extern "C" geode::Mod* createMod();
-
-#endif // VOICECHATMOD_H
