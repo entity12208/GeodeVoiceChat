@@ -1,4 +1,3 @@
-# GeodeVoiceChat
 ![Icon.png](https://github.com/user-attachments/assets/590a4bf2-a8f1-4f84-b878-99d4cfcf699b)
 
 ## Description
