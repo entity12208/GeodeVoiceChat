@@ -3,7 +3,7 @@ name: Create Release
 on:
   push:
     branches:
-      - main  # Ensure this matches your default branch
+      - main  # Adjust this to your default branch if needed
 
 jobs:
   release:
@@ -17,12 +17,14 @@ jobs:
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
 
-      - name: Get the latest tag
-        id: get_tag
+      - name: Fetch tags
+        run: git fetch --tags
+
+      - name: Determine the latest tag
+        id: get_latest_tag
         run: |
-          git fetch --tags
           TAG=$(git tag --sort=-creatordate | head -n 1)
-          echo "LATEST_TAG=$TAG" >> $GITHUB_ENV
+          echo "LATEST_TAG=${TAG:-v0.0.0}" >> $GITHUB_ENV
 
       - name: Bump version
         id: bump_version
