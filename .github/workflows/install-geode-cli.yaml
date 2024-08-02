@@ -22,10 +22,8 @@ jobs:
         node-version: '16'
 
     - name: Checkout Geode CLI repository
-      uses: actions/checkout@v3
-      with:
-        repository: geode-sdk/cli
-        path: geode-cli
+      run: |
+        git clone https://github.com/geode-sdk/cli.git geode-cli
 
     - name: Install Geode CLI
       run: |
