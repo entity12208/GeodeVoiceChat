@@ -24,7 +24,7 @@ jobs:
     - name: Checkout Geode CLI repository
       uses: actions/checkout@v3
       with:
-        repository: geode-sdk/geode-cli
+        repository: geode-sdk/cli
         path: geode-cli
 
     - name: Install Geode CLI
