@@ -4,8 +4,6 @@ project(VoiceChatMod)
 
 set(CMAKE_CXX_STANDARD 17)
 
-include_directories(include)
-
 add_library(voicechat SHARED src/voicechatmod.cpp src/main.cpp)
 
 find_package(CURL REQUIRED)
