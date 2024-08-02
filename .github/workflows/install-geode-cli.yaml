@@ -24,8 +24,6 @@ jobs:
         node-version: '16'
 
     - name: Clone Geode CLI repository
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         git clone https://github.com/geode-sdk/geode-cli.git
         cd geode-cli
