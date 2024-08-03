@@ -16,20 +16,22 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '16'
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y cmake make g++ unzip
 
     - name: Checkout Geode CLI repository
       run: |
-        git clone https://github.com/geode-sdk/cli.git
+        git clone https://github.com/geode-sdk/cli.git geode-cli
 
-    - name: Install Geode CLI
+    - name: Build Geode CLI
       run: |
-        cd cli
-        npm install
-#        npm link
+        cd geode-cli
+        mkdir build
+        cd build
+        cmake ..
+        make
 
     - name: Verify Geode CLI installation
-      run: geode --version
+      run: ./geode-cli/build/geode --version
