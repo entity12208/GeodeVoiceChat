@@ -23,11 +23,11 @@ jobs:
 
     - name: Checkout Geode CLI repository
       run: |
-        git clone https://github.com/geode-sdk/cli.git geode-cli
+        git clone https://github.com/geode-sdk/cli.git
 
     - name: Install Geode CLI
       run: |
-        cd geode-cli
+        cd cli
         npm install
         npm link
 
