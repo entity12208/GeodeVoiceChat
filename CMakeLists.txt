@@ -1,11 +1,20 @@
-cmake_minimum_required(VERSION 3.10)
-
-project(VoiceChatMod)
+cmake_minimum_required(VERSION 3.16)
+project(GeodeVoiceChat)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_library(voicechat SHARED src/voicechatmod.cpp src/main.cpp)
-
+# Find CURL
 find_package(CURL REQUIRED)
-include_directories(${CURL_INCLUDE_DIRS})
-target_link_libraries(voicechat ${CURL_LIBRARIES})
+
+# Include Geode SDK
+set(GEODE_SDK_PATH "geode-sdk")
+include_directories(${GEODE_SDK_PATH}/include)
+
+# Add source files
+file(GLOB SOURCES "src/*.cpp")
+
+# Add executable
+add_executable(voicechat ${SOURCES})
+
+# Link libraries
+target_link_libraries(voicechat CURL::libcurl)
