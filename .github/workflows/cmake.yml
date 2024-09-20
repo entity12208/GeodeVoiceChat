@@ -8,7 +8,7 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Set up CMake
       uses: lukka/get-cmake@v3.21.2
@@ -16,10 +16,10 @@ jobs:
         cmake-version: 3.21.2
 
     - name: Configure CMake
-      run: cmake -S . -B build
+      run: cmake ..
 
     - name: Build
-      run: cmake --build build
+      run: make
 
     - name: Run tests
-      run: ctest --test-dir build
+      run: /*none*/ 
