@@ -8,7 +8,8 @@ inputs:
     required: false
     default: latest
 on:
-  workflow_dispach:
+  push:
+  workflow_dispatch:
     runs:
       using: "composite"
       steps:
